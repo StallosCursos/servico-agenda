@@ -6,7 +6,7 @@ using System.Text;
 
 namespace AgendaServico.InfraEstrutura.Context
 {
-    public interface IAgendaContext
+    public interface IAgendaContext: IDisposable
     {
         DbSet<Usuario> Usuario { get; set; }
         DbSet<Contato> Contato { get; set; }

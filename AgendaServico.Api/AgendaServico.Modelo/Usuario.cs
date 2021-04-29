@@ -10,6 +10,7 @@ namespace AgendaServico.Modelo
         public string Email { get; set; }
         public string NomeUsuario { get; set; }
         public string Senha { get; set; }
+        public bool Logado { get; set; }
 
         public List<Contato> Contatos { get; set; }
     }
