@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AgendaServico.InfraEstrutura.Context;
+using AgendaServico.InfraEstrutura.Repositories.Interfaces;
 using AgendaServico.Modelo;
 
 namespace AgendaServico.InfraEstrutura.Repositories

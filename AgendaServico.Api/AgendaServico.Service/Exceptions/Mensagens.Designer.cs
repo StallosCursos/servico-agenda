@@ -61,6 +61,24 @@ namespace AgendaServico.Service.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Esta categoria ja foi adicionada ao sistema.
+        /// </summary>
+        internal static string CategoriaJaAdicionada {
+            get {
+                return ResourceManager.GetString("CategoriaJaAdicionada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Esta categoria nao foi adicionada ao ambiente.
+        /// </summary>
+        internal static string CategoriaNaoAdicionada {
+            get {
+                return ResourceManager.GetString("CategoriaNaoAdicionada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A senha do usuario não foi informada para esta operação.
         /// </summary>
         internal static string SenhaNaoFornecida {

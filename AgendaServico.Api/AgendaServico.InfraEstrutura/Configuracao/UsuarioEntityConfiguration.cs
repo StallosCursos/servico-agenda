@@ -14,7 +14,7 @@ namespace AgendaServico.InfraEstrutura.Configuracao
 
             builder.Property(t => t.Nome).HasColumnName("Nome").HasMaxLength(50).IsRequired();
             builder.Property(t => t.NomeUsuario).HasColumnName("Usuario").HasMaxLength(25).IsRequired();
-            builder.Property(t => t.Senha).HasColumnName("Senha").HasMaxLength(25).IsRequired();
+            builder.Property(t => t.Senha).HasColumnName("Senha").HasMaxLength(100).IsRequired();
             builder.Property(t => t.Email).HasColumnName("Email").HasMaxLength(100).IsRequired();
 
             builder.HasMany(t => t.Contatos).WithOne(t => t.Usuario).HasForeignKey(t => t.IdUsuario);

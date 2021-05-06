@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AgendaServico.InfraEstrutura\AgendaServico.InfraEstrutura.csproj" />
     <ProjectReference Include="..\AgendaServico.Modelo\AgendaServico.Modelo.csproj" />
+    <ProjectReference Include="..\AgendaServico.Service\AgendaServico.Service.csproj" />
   </ItemGroup>
 
 </Project>

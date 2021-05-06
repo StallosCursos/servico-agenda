@@ -1,7 +1,7 @@
 ﻿using AgendaServico.Modelo;
 using System.Collections.Generic;
 
-namespace AgendaServico.InfraEstrutura.Repositories
+namespace AgendaServico.InfraEstrutura.Repositories.Interfaces
 {
     public interface ICategoriaRepository
     {

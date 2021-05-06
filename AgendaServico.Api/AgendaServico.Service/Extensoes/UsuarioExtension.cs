@@ -11,7 +11,7 @@ namespace AgendaServico.Service.Extensoes
     {
         public static string HashSenha(this Usuario usuario)
         {
-            if (string.IsNullOrEmpty(usuario.Senha))
+            if (!string.IsNullOrEmpty(usuario.Senha))
             {
                 byte[] encodeSenha = new UTF8Encoding().GetBytes(usuario.Senha);
                 byte[] hash = ((HashAlgorithm)CryptoConfig.CreateFromName("MD5")).ComputeHash(encodeSenha);

@@ -1,5 +1,4 @@
-﻿using AgendaServico.InfraEstrutura.Repositories;
-using AgendaServico.InfraEstrutura.Repositories.Interfaces;
+﻿using AgendaServico.InfraEstrutura.Repositories.Interfaces;
 using System;
 
 namespace AgendaServico.InfraEstrutura
