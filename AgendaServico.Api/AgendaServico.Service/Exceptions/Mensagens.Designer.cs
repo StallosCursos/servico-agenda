@@ -97,6 +97,15 @@ namespace AgendaServico.Service.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to O filtro informado para consulta de categorias nao foi informado.
+        /// </summary>
+        internal static string TermoNaoInformadoCategoria {
+            get {
+                return ResourceManager.GetString("TermoNaoInformadoCategoria", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to O Usuario informado ja existe no sistema por favor informe outro nome de usuario..
         /// </summary>
         internal static string UsuarioExistente {

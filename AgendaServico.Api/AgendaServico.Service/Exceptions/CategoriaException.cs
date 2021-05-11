@@ -12,5 +12,6 @@ namespace AgendaServico.Service.Exceptions
 
         public static CategoriaException CategoriaJaAdicionada => new CategoriaException(Mensagens.CategoriaJaAdicionada);
         public static CategoriaException CategoriaNaoAdicionada => new CategoriaException(Mensagens.CategoriaNaoAdicionada);
+        public static CategoriaException TermoNaoInformadoConsulta => new CategoriaException(Mensagens.TermoNaoInformadoCategoria);
     }
 }

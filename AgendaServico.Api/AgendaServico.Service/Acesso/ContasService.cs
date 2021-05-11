@@ -30,5 +30,8 @@ namespace AgendaServico.Service.Acesso
 
             return usuario;
         }
+
+        public Usuario BuscarUsuarioPorNome(string NomeUsuario) =>
+            _unitOfwork.usuarioRepostiory.BuscarUsuarios(t => t.NomeUsuario == NomeUsuario).FirstOrDefault();
     }
 }

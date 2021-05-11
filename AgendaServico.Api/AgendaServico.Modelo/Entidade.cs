@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AgendaServico.Modelo
 {
@@ -15,7 +13,7 @@ namespace AgendaServico.Modelo
             if (obj is Entidade Objeto)
                 return Objeto.Id == this.Id;
             else
-                throw new InvalidOperationException("Entidades comparadas não são de mesmo tipo");
+                return false;
         }
     }
 }

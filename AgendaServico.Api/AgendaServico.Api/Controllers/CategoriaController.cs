@@ -1,5 +1,5 @@
 ﻿using AgendaServico.Modelo;
-using AgendaServico.Service.Persistencia;
+using AgendaServico.Service.Persistencia.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -21,5 +21,13 @@ namespace AgendaServico.Api.Controllers
         [HttpPost]
         public Categoria NovaCategoria(Categoria categoria) =>
             _categoriaService.NovaCategoria(categoria);
+
+        [HttpGet]
+        public List<Categoria> ListarCategorias() =>
+            _categoriaService.Categorias();
+
+        [HttpGet("{Term}")]
+        public List<Categoria> ListarCategoriasCom(string Term) =>
+            _categoriaService.CategoriasComecandoCom(Term);
     }
 }

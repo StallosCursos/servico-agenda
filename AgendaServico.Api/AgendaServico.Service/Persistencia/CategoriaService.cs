@@ -2,6 +2,7 @@
 using AgendaServico.InfraEstrutura.Context;
 using AgendaServico.Modelo;
 using AgendaServico.Service.Exceptions;
+using AgendaServico.Service.Persistencia.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +43,16 @@ namespace AgendaServico.Service.Persistencia
             _unitOfWork.Commit();
 
             return categoria;
+        }
+
+        public List<Categoria> Categorias() => _unitOfWork.categoriaRepository.BuscarCategorias();
+
+        public List<Categoria> CategoriasComecandoCom(string term)
+        {
+            if (string.IsNullOrEmpty(term))
+                throw CategoriaException.TermoNaoInformadoConsulta;
+
+            return _unitOfWork.categoriaRepository.BuscarCategorias().Where(t => t.Nome.StartsWith(term)).ToList();
         }
     }
 }

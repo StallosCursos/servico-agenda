@@ -5,6 +5,7 @@ using AgendaServico.InfraEstrutura.Context;
 using AgendaServico.InfraEstrutura.Repositories.Interfaces;
 using AgendaServico.Modelo;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace AgendaServico.InfraEstrutura.Repositories
 {
@@ -12,6 +13,16 @@ namespace AgendaServico.InfraEstrutura.Repositories
     {
         public UsuarioRepository(IAgendaContext agendaContext) : base(agendaContext)
         {
+        }
+
+        private IIncludableQueryable<Usuario, Categoria> CarregarTodasRelacoes()
+        {
+            return this.AgendaContext.Usuario
+                                     .Include(t => t.Contatos)
+                                        .ThenInclude(t => t.NumerContato)
+                                           .ThenInclude(t => t.Contato)
+                                        .ThenInclude(t => t.NumerContato)
+                                           .ThenInclude(t => t.Categoria);
         }
 
         public void AdicionarNovoUsuario(Usuario usuario) =>
@@ -29,16 +40,11 @@ namespace AgendaServico.InfraEstrutura.Repositories
             this.AgendaContext.Usuario.Remove(usuario);
         }
 
-        public Usuario BuscarUsuarioId(int Id)
-        {
-            return this.AgendaContext.Usuario
-                                     .Include(t => t.Contatos)
-                                        .ThenInclude(t => t.NumerContato)
-                                           .ThenInclude(t => t.Contato)
-                                        .ThenInclude(t => t.NumerContato)
-                                           .ThenInclude(t => t.Categoria)
-                                     .FirstOrDefault(t => t.Id == Id);
-        }
+        public Usuario BuscarUsuarioId(int Id) => 
+            CarregarTodasRelacoes().FirstOrDefault(t => t.Id == Id);
+
+        public Usuario BuscarUsuarioPorNome(string NomeUsuario) =>
+            CarregarTodasRelacoes().FirstOrDefault(t => t.NomeUsuario == NomeUsuario);
 
         public List<Usuario> BuscarUsuarios(Func<Usuario, bool> Predicate) =>
             this.AgendaContext.Usuario.Where(Predicate).ToList();

@@ -3,6 +3,7 @@ using AgendaServico.InfraEstrutura.Context;
 using AgendaServico.Service.Acesso;
 using AgendaServico.Service.Acesso.Interfaces;
 using AgendaServico.Service.Persistencia;
+using AgendaServico.Service.Persistencia.Interfaces;
 using AgendaServico.Service.Token;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -44,6 +45,7 @@ namespace AgendaServico.Api
             services.AddScoped<IContasService, ContasService>();
             services.AddScoped<IAutenticacaoService, AutenticacaoService>();
             services.AddScoped<ICategoriaService, CategoriaService>();
+            services.AddScoped<IContatoService, ContatoService>();
 
             services.AddCors(o => o.AddPolicy("Cors", builder =>
             {
@@ -54,6 +56,10 @@ namespace AgendaServico.Api
             }));
 
             ConfigureSwaggerGen(services);
+
+            services.AddControllers().AddNewtonsoftJson(options =>
+               options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
 
             services.AddAuthentication(scheme =>
             {
