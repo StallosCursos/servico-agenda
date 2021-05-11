@@ -11,7 +11,7 @@ namespace AgendaServico.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ContatoController : ControllerBase
+    public class ContatoController : AuthBaseController
     {
         private readonly IContatoService _contatoService;
 

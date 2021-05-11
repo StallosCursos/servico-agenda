@@ -54,7 +54,9 @@ namespace AgendaServico.Service.Persistencia
         {
             Usuario usuarioPersistido = BuscarUsuario(nomeUsuario);
 
-            usuarioPersistido.Contatos.Remove(contato);
+            var contatoPersistido = usuarioPersistido.Contatos.FirstOrDefault(t => t.Id == contato.Id);
+
+            usuarioPersistido.Contatos.Remove(contatoPersistido);
 
             _unitOfWork.usuarioRepostiory.AlterarUsuario(usuarioPersistido);
             _unitOfWork.Commit();

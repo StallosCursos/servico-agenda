@@ -1,12 +1,9 @@
-﻿using AgendaServico.InfraEstrutura;
-using AgendaServico.InfraEstrutura.Context;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AgendaServico.InfraEstrutura;
 using AgendaServico.Modelo;
 using AgendaServico.Service.Exceptions;
 using AgendaServico.Service.Persistencia.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace AgendaServico.Service.Persistencia
 {
@@ -39,7 +36,7 @@ namespace AgendaServico.Service.Persistencia
 
             categoriaPersistida.Nome = categoria.Nome;
 
-            _unitOfWork.categoriaRepository.AtualizarCategoria(categoria);
+            _unitOfWork.categoriaRepository.AtualizarCategoria(categoriaPersistida);
             _unitOfWork.Commit();
 
             return categoria;
