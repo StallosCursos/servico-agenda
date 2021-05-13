@@ -1,11 +1,10 @@
-﻿using AgendaServico.Modelo;
-using AgendaServico.Service.Persistencia.Interfaces;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using AgendaServico.Api.ViewModel;
+using AgendaServico.Modelo;
+using AgendaServico.Service.Persistencia.Interfaces;
+
 
 namespace AgendaServico.Api.Controllers
 {
@@ -19,15 +18,34 @@ namespace AgendaServico.Api.Controllers
             _categoriaService = categoriaService;
 
         [HttpPost]
-        public Categoria NovaCategoria(Categoria categoria) =>
+        public CategoriaViewModel NovaCategoria(CategoriaViewModel categoriaViewModel)
+        {
+            Categoria categoria = new Categoria { 
+                Nome = categoriaViewModel.Nome
+            };
+
             _categoriaService.NovaCategoria(categoria);
 
+            return new CategoriaViewModel { Id = categoria.Id, Nome = categoria.Nome };
+        }
+
         [HttpGet]
-        public List<Categoria> ListarCategorias() =>
-            _categoriaService.Categorias();
+        public List<CategoriaViewModel> ListarCategorias()
+        {
+            return _categoriaService.Categorias().Select(t => new CategoriaViewModel { 
+               Id = t.Id, 
+               Nome = t.Nome
+            }).ToList();
+        }
 
         [HttpGet("{Term}")]
-        public List<Categoria> ListarCategoriasCom(string Term) =>
-            _categoriaService.CategoriasComecandoCom(Term);
+        public List<CategoriaViewModel> ListarCategoriasCom(string Term)
+        {
+            return _categoriaService.Categorias().Select(t => new CategoriaViewModel
+            {
+                Id = t.Id,
+                Nome = t.Nome
+            }).ToList();
+        }
     }
 }

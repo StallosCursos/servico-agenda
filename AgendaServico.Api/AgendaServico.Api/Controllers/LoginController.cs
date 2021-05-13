@@ -1,11 +1,7 @@
-﻿using AgendaServico.Modelo;
+﻿using AgendaServico.Api.ViewModel;
+using AgendaServico.Modelo;
 using AgendaServico.Service.Acesso.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AgendaServico.Api.Controllers
 {
@@ -21,7 +17,13 @@ namespace AgendaServico.Api.Controllers
         }
 
         [HttpPost]
-        public string Login(Usuario usuario) =>
-            _autenticacaoService.Login(usuario);
+        public RespostaLoginViewModel Login(LoginViewModel loginViewModel)
+        {
+            Usuario usuario = new Usuario { NomeUsuario = loginViewModel.NomeUsuario, Senha = loginViewModel.Senha };
+
+            var Token =  _autenticacaoService.Login(usuario);
+
+            return new RespostaLoginViewModel { Token = Token };
+        }
     }
 }

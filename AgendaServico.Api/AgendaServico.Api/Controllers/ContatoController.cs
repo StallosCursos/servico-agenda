@@ -1,11 +1,9 @@
-﻿using AgendaServico.Modelo;
-using AgendaServico.Service.Persistencia.Interfaces;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using AgendaServico.Api.ViewModel;
+using AgendaServico.Modelo;
+using AgendaServico.Service.Persistencia.Interfaces;
 
 namespace AgendaServico.Api.Controllers
 {
@@ -18,35 +16,81 @@ namespace AgendaServico.Api.Controllers
         public ContatoController(IContatoService contatoService) =>
             _contatoService = contatoService;
 
+        private static ContatoViewModel ParaView(Contato contato)
+        {
+            return new ContatoViewModel
+            {
+                Id = contato.Id,
+                Email = contato.Email,
+                Nome = contato.Nome,
+                NumeroContato = contato.NumerContato.Select(t => new NumeroContatoViewModel
+                {
+                    Ddd = t.Ddd,
+                    Numero = t.Numero,
+                    IdCategoria = t.IdCategoria,
+                    Id = t.Id,
+                    TipoContato = (int)t.TipoContato
+                }).ToList()
+            };
+        }
+
+        private static Contato ParaModel(ContatoViewModel contatoViewModel)
+        {
+            return new Contato
+            {
+                Id = contatoViewModel.Id,
+                Nome = contatoViewModel.Nome,
+                Email = contatoViewModel.Email,
+                NumerContato = contatoViewModel.NumeroContato.Select(t => new NumeroContato
+                {
+                    IdCategoria = t.IdCategoria,
+                    Ddd = t.Ddd,
+                    Numero = t.Numero,
+                    TipoContato = (TipoContato)t.TipoContato
+                }).ToList()
+            };
+        }
+
         [HttpPost]
-        public Contato NovoContato(Contato contato)
+        public ContatoViewModel NovoContato(ContatoViewModel contatoViewModel)
         {
             var usuario = this.HttpContext.User.Identity.Name;
 
-            return _contatoService.NovoContato(usuario, contato);
+            Contato contato = ParaModel(contatoViewModel);
+            contato = _contatoService.NovoContato(usuario, contato);
+
+            return ParaView(contato);
         }
 
         [HttpPut]
-        public Contato AtualizarContato(Contato contato)
+        public ContatoViewModel AtualizarContato(ContatoViewModel contatoViewModel)
         {
             var usuario = this.HttpContext.User.Identity.Name;
 
-            return _contatoService.AtualizarContato(usuario, contato);
+            Contato contato = ParaModel(contatoViewModel);
+            contato = _contatoService.AtualizarContato(usuario, contato);
+
+            return ParaView(contato);
         }
 
         [HttpDelete]
-        public Contato RemoverContato(Contato contato)
+        public ContatoViewModel RemoverContato(ContatoViewModel contatoViewModel)
         {
             var usuario = this.HttpContext.User.Identity.Name;
 
-            return _contatoService.RemoverContato(usuario, contato);
+            Contato contato = ParaModel(contatoViewModel);
+            contato = _contatoService.RemoverContato(usuario, contato);
+
+            return ParaView(contato);
         }
 
         [HttpGet]
-        public List<Contato> BuscarTodosContatos()
+        public List<ContatoViewModel> BuscarTodosContatos()
         {
             var usuario = this.HttpContext.User.Identity.Name;
-            return _contatoService.BuscarContatos(usuario);
+            var contatos = _contatoService.BuscarContatos(usuario);
+
+            return contatos.Select(t => ParaView(t)).ToList();
         }
 
     }

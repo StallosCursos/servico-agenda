@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using AgendaServico.Modelo;
 using AgendaServico.Service.Acesso.Interfaces;
+using AgendaServico.Api.ViewModel;
 
 namespace AgendaServico.Api.Controllers
 {
@@ -16,7 +17,18 @@ namespace AgendaServico.Api.Controllers
         }
 
         [HttpPost]
-        public Usuario NovaConta(Usuario usuario) =>
+        public UsuarioViewModel NovaConta(UsuarioViewModel usuarioViewModel)
+        {
+            Usuario usuario = new Usuario
+            {
+                Nome = usuarioViewModel.Nome,
+                Senha = usuarioViewModel.Senha,
+                Email = usuarioViewModel.Email,
+                NomeUsuario = usuarioViewModel.NomeUsuario
+            };
             _contasService.NovaConta(usuario);
+
+            return usuarioViewModel;
+        }
     }
 }
