@@ -1,3 +1,4 @@
+using AgendaServico.Api.Middleware;
 using AgendaServico.InfraEstrutura;
 using AgendaServico.InfraEstrutura.Context;
 using AgendaServico.Service.Acesso;
@@ -139,6 +140,11 @@ namespace AgendaServico.Api
             app.UseRouting();
 
             app.UseCors("Cors");
+
+            app.UseExceptionHandler(new ExceptionHandlerOptions
+            {
+                ExceptionHandler = new JsonExceptionMiddleware(env).Invoke
+            });
 
             app.UseAuthentication();
             app.UseAuthorization();
