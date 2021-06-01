@@ -41,7 +41,7 @@ namespace AgendaServico.Api.Controllers
         [HttpGet("{Term}")]
         public List<CategoriaViewModel> ListarCategoriasCom(string Term)
         {
-            return _categoriaService.Categorias().Select(t => new CategoriaViewModel
+            return _categoriaService.Categorias().Where(t => t.Nome.StartsWith(Term)).Select(t => new CategoriaViewModel
             {
                 Id = t.Id,
                 Nome = t.Nome

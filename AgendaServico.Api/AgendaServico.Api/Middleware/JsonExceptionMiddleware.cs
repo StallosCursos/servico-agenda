@@ -23,6 +23,7 @@ namespace AgendaServico.Api.Middleware
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
             var ex = context.Features.Get<IExceptionHandlerFeature>()?.Error;
+
             if (ex == null) return;
 
             var error = new
@@ -37,6 +38,7 @@ namespace AgendaServico.Api.Middleware
                 context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
 
             using var writer = new StreamWriter(context.Response.Body);
+
             new JsonSerializer().Serialize(writer, error);
             await writer.FlushAsync().ConfigureAwait(false);
         }
